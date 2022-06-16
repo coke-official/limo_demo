@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="threshold" default="12.4" />
+	<include file="$(find sound_play)/soundplay_node.launch" />
+	<node name="battery" pkg="limo_demo" type="battery" output="screen">
+		<param name="threshold" value="$(arg threshold)"/>
+	</node>
+</launch>
