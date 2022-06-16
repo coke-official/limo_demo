@@ -13,7 +13,7 @@ void batteryCallback(const limo_base::LimoStatus& msg)
 	ROS_INFO("battery_voltage: %f", voltage);
 	if (voltage < threshold)
 	{
-		sound_client.playWave("/home/agilex/voice/juuden.wav", 1.0);
+		sound_client.playWave("/home/agilex/agilex_ws/src/limo_ros/limo_demo/voice/juuden.wav", 1.0);
 		sleep(3);
 	}
 }
