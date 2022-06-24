@@ -14,31 +14,31 @@ class BATTERY_CHECK{
 			pnh.param("threshold", threshold, default_threshold);
 			ros::Subscriber sub = n.subscribe("limo_status", 10, &BATTERY_CHECK::batteryCallback, this);
 			ros::Publisher charge_pub = n.advertise<std_msgs::Bool>("charge",1000);
+			void batteryCallback(const limo_base::LimoStatus& msg);
 		}
 		~BATTERY_CHECK(){}
-
-		void batteryCallback(const limo_base::LimoStatus& msg)
-		{
-			std::string path = "/home/agilex/catkin_ws/src/limo_demo/voice/juuden.wav";
-			std_msgs::Bool charge;
-			sound_play::SoundClient sound_client;
-			float voltage = msg.battery_voltage;
-			ROS_INFO("battery_voltage: %f", voltage);
-			if (voltage < threshold)
-			{
-				sound_client.playWave(path, 1.0);
-				sleep(3);
-				charge.data = true;
-			}else{
-				charge.data = false;
-			}
-			charge_pub.publish(charge);
-		}
-
 	private:
 		float threshold;
 		float default_threshold =12;
 };
+
+void BATTERY_CHECK::batteryCallback(const limo_base::LimoStatus& msg)
+{
+	std::string path = "/home/agilex/catkin_ws/src/limo_demo/voice/juuden.wav";
+	std_msgs::Bool charge;
+	sound_play::SoundClient sound_client;
+	float voltage = msg.battery_voltage;
+	ROS_INFO("battery_voltage: %f", voltage);
+	if (voltage < threshold)
+	{
+		sound_client.playWave(path, 1.0);
+		sleep(3);
+		charge.data = true;
+	}else{
+		charge.data = false;
+	}
+	charge_pub.publish(charge);
+}
 
 
 int main(int argc, char **argv)
