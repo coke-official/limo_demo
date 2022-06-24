@@ -7,10 +7,7 @@
 #include "limo_base/LimoStatus.h" 
 float threshold;
 class BATTERY_CHECK{
-	public:
-		sound_play::SoundClient sound_client;
-		ros::Subscriber sub = n.subscribe("limo_status", 10, batteryCallback);
-		ros::Publisher charge_pub = n.advertise<std_msgs::Bool>("charge",1000);
+
 		
 
 
@@ -38,6 +35,12 @@ class BATTERY_CHECK{
 		}
 		charge_pub.publish(charge);
 	}
+	
+	
+	public:
+		sound_play::SoundClient sound_client;
+		ros::Subscriber sub = n.subscribe("limo_status", 10, batteryCallback);
+		ros::Publisher charge_pub = n.advertise<std_msgs::Bool>("charge",1000);
 };
 
 
