@@ -17,7 +17,7 @@ class BATTERY_CHECK{
 	
 	
 		BATTERY_CHECK() :
-			rate_(0.3);	
+			rate_(0.3)
 		{
 			ros::NodeHandle pnh("~");
 			pnh.param("threshold", threshold, default_threshold);
