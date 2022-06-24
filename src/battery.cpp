@@ -12,7 +12,6 @@ class BATTERY_CHECK{
 		ros::NodeHandle n;
 		ros::NodeHandle pnh("~");
 		pnh.param("threshold", threshold, default_threshold);
-		sound_play::SoundClient sound_client;
 		ros::Subscriber sub = n.subscribe("limo_status", 10, &BATTERY_CHECK::batteryCallback, this);
 		ros::Publisher charge_pub = n.advertise<std_msgs::Bool>("charge",1000);
 	}
@@ -22,6 +21,7 @@ class BATTERY_CHECK{
 	{
 		std::string path = "/home/agilex/catkin_ws/src/limo_demo/voice/juuden.wav";
 		std_msgs::Bool charge;
+		sound_play::SoundClient sound_client;
 		float voltage = msg.battery_voltage;
 		ROS_INFO("battery_voltage: %f", voltage);
 		if (voltage < threshold)
