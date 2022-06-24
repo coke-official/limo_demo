@@ -5,7 +5,7 @@
 #include "std_msgs/Bool.h"
 #include "sound_play/sound_play.h"
 #include "limo_base/LimoStatus.h" 
-float threshold;
+
 class BATTERY_CHECK{
 
 	BATTERY_CHECK(){
@@ -35,7 +35,8 @@ class BATTERY_CHECK{
 		charge_pub.publish(charge);
 	}
 
-
+	private:
+		float threshold;
 };
 
 
