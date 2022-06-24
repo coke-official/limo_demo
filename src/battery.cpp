@@ -23,7 +23,7 @@ class BATTERY_CHECK{
 	private:
 		float threshold;
 		float default_threshold =12;
-		vector<int> charging_threshold;
+		std::vector<int> charging_threshold;
 };
 
 void BATTERY_CHECK::batteryCallback(const limo_base::LimoStatus& msg)
