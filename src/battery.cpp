@@ -12,7 +12,7 @@ class BATTERY_CHECK{
 		void batteryCallback(const limo_base::LimoStatus& msg);
 		ros::Subscriber sub = n.subscribe("limo_status", 10, &BATTERY_CHECK::batteryCallback, this);
 		ros::Publisher charge_pub = n.advertise<std_msgs::Bool>("charge",1000);
-	
+		ros::Rate rate_(0.3);
 	
 	
 		BATTERY_CHECK(){
@@ -23,6 +23,7 @@ class BATTERY_CHECK{
 	private:
 		float threshold;
 		float default_threshold =12;
+		vector<int> charging_threshold;
 };
 
 void BATTERY_CHECK::batteryCallback(const limo_base::LimoStatus& msg)
@@ -34,13 +35,18 @@ void BATTERY_CHECK::batteryCallback(const limo_base::LimoStatus& msg)
 	ROS_INFO("battery_voltage: %f", voltage);
 	if (voltage < threshold)
 	{
-		sound_client.playWave(path, 1.0);
-		sleep(3);
-		charge.data = true;
+		charging_threshold.push_back(1);
 	}else{
+		charging_threshold.clear();
 		charge.data = false;
 	}
+
+	if(charging_threshold.size()>20){
+		sound_client.playWave(path, 1.0);
+		charge.data = true;
+	}
 	charge_pub.publish(charge);
+	rate_.sleep();
 }
 
 
