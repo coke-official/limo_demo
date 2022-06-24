@@ -11,7 +11,7 @@ class BATTERY_CHECK{
 	BATTERY_CHECK(){
 		ros::NodeHandle n;
 		ros::NodeHandle pnh("~");
-		pnh.getParam("threshold", threshold, 12.0);
+		pnh.param("threshold", threshold, 12.0);
 		sound_play::SoundClient sound_client;
 		ros::Subscriber sub = n.subscribe("limo_status", 10, batteryCallback);
 		ros::Publisher charge_pub = n.advertise<std_msgs::Bool>("charge",1000);
