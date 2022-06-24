@@ -33,9 +33,9 @@ class BATTERY_CHECK{
 		{
 			sound_client.playWave(path, 1.0);
 			sleep(3);
-			charge = true;
+			charge.data = true;
 		}else{
-			charge = false;
+			charge.data = false;
 		}
 		charge_pub.publish(charge);
 	}
