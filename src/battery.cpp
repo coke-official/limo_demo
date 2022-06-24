@@ -16,12 +16,12 @@ class BATTERY_CHECK{
 		~BATTERY_CHECK();
 
 
-	BATTERY_CHECK(){
+	BATTERY_CHECK::BATTERY_CHECK(){
 		ros::NodeHandle n;
 		ros::NodeHandle pnh("~");
 		pnh.getParam("threshold", threshold);
 	}
-	~BATTERY_CHECK(){}
+	BATTERY_CHECK::~BATTERY_CHECK(){}
 
 	void batteryCallback(const limo_base::LimoStatus& msg)
 	{
