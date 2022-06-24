@@ -1,19 +1,21 @@
 #include "unistd.h"
 #include "ros/ros.h"
+#include "ros/package.h"
 #include "std_msgs/Header.h"
 #include "sound_play/sound_play.h"
-#include "limo_base/LimoStatus.h"
-
+#include "limo_base/LimoStatus.h" 
 float threshold;
 
 void batteryCallback(const limo_base::LimoStatus& msg)
 {
+	//std::string path = ros::package::getPath("limo_demo");
+	std::string path = "/home/agilex/catkin_ws/src/limo_demo/voice/juuden.wav";
 	sound_play::SoundClient sound_client;
 	float voltage = msg.battery_voltage;
 	ROS_INFO("battery_voltage: %f", voltage);
 	if (voltage < threshold)
 	{
-		sound_client.playWave("/home/agilex/agilex_ws/src/limo_ros/limo_demo/voice/juuden.wav", 1.0);
+		sound_client.playWave(path, 1.0);
 		sleep(3);
 	}
 }
