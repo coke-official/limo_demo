@@ -12,9 +12,10 @@ class BATTERY_CHECK{
 			ros::NodeHandle n;
 			ros::NodeHandle pnh("~");
 			pnh.param("threshold", threshold, default_threshold);
+			void batteryCallback(const limo_base::LimoStatus& msg);
 			ros::Subscriber sub = n.subscribe("limo_status", 10, &BATTERY_CHECK::batteryCallback, this);
 			ros::Publisher charge_pub = n.advertise<std_msgs::Bool>("charge",1000);
-			void batteryCallback(const limo_base::LimoStatus& msg);
+			
 		}
 		~BATTERY_CHECK(){}
 	private:
