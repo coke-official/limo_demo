@@ -20,15 +20,14 @@ class BATTERY_CHECK{
 			rate_(0.3)
 		{
 			ros::NodeHandle pnh("~");
-			pnh.param("threshold", _threshold, std::string("12"));
+			pnh.param("threshold", threshold, 12.0);
 			pnh.param("file_path", file_path, std::string(""));
-			threshold = std::atof(_threshold);
+
 
 		}
 		~BATTERY_CHECK(){}
 	private:
 		double threshold;
-		std::string _threshold;
 		std::vector<int> charging_threshold;
 		std::string file_path;
 
