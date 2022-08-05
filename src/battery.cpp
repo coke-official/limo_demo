@@ -22,8 +22,6 @@ class BATTERY_CHECK{
 			ros::NodeHandle pnh("~");
 			pnh.param("threshold", threshold, 12.0);
 			pnh.param("file_path", file_path, std::string(""));
-
-
 		}
 		~BATTERY_CHECK(){}
 	private:
