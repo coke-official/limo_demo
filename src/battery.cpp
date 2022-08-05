@@ -23,6 +23,7 @@ class BATTERY_CHECK{
 			pnh.param("threshold", _threshold, std::string("12"));
 			pnh.param("file_path", file_path, std::string(""));
 			threshold = std::atof(_threshold);
+
 		}
 		~BATTERY_CHECK(){}
 	private:
@@ -31,6 +32,7 @@ class BATTERY_CHECK{
 		std::string threshold;
 		std::vector<int> charging_threshold;
 		std::string file_path;
+
 };
 
 void BATTERY_CHECK::batteryCallback(const limo_base::LimoStatus& msg)
