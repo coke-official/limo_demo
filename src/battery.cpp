@@ -29,7 +29,6 @@ class BATTERY_CHECK{
 	private:
 		float threshold;
 		std::string _threshold;
-		std::string threshold;
 		std::vector<int> charging_threshold;
 		std::string file_path;
 
