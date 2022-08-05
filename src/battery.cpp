@@ -20,18 +20,21 @@ class BATTERY_CHECK{
 			rate_(0.3)
 		{
 			ros::NodeHandle pnh("~");
-			pnh.param("threshold", threshold, default_threshold);
+			pnh.param("threshold", _threshold, std::string("12"));
+			pnh.param("file_path", file_path, std::string(""));
+			threshold = std::atof(_threshold);
 		}
 		~BATTERY_CHECK(){}
 	private:
 		float threshold;
-		float default_threshold =12;
+		std::string _threshold;
+		std::string threshold;
 		std::vector<int> charging_threshold;
+		std::string file_path;
 };
 
 void BATTERY_CHECK::batteryCallback(const limo_base::LimoStatus& msg)
 {
-	std::string path = "/home/agilex/catkin_ws/src/limo_demo/voice/juuden.wav";
 	std_msgs::Bool charge;
 	sound_play::SoundClient sound_client;
 	float voltage = msg.battery_voltage;
@@ -45,7 +48,7 @@ void BATTERY_CHECK::batteryCallback(const limo_base::LimoStatus& msg)
 	}
 
 	if(charging_threshold.size()>20){
-		sound_client.playWave(path, 1.0);
+		sound_client.playWave(file_path, 1.0);
 		charge.data = true;
 	}
 	charge_pub.publish(charge);
